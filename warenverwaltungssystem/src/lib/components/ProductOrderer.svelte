@@ -1,5 +1,6 @@
 <script lang="ts">
     import "../../app.css"
+    import SubmitButton from "./SubmitButton.svelte";
 </script>
 
 <div class="p-4 flex outline outline-1 rounded-md w-max h-max">

@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { getContext } from "svelte";
     import "../../app.css"
+	import SubmitButton from "./SubmitButton.svelte";
+    
 </script>
 
 <div class="p-4 flex outline outline-1 rounded-md w-max h-max">
@@ -10,5 +13,6 @@
         <label class="outline outline-1 rounded-md">
             <input class="outline-none pl-1 pr-1" type="password" name="companyPassword">
         </label>
+        <SubmitButton />
     </form>
 </div>
