@@ -9,6 +9,8 @@
     import { writable } from "svelte/store";
     import type { Product } from "$lib/types/product";
     import type { PageData } from "./$types";
+    import Selector from "$lib/components/Selector.svelte";
+	import ProductOrderer from "$lib/components/ProductOrderer.svelte";
 
     export let data: PageData
 
@@ -21,19 +23,25 @@
     products.set(data.products)
 
     let companyList: Company[]
+    let productList: Product[]
 
     companies.subscribe((value) => {
         companyList = value
         console.log(companyList)
     })
+    products.subscribe((value) => {
+        productList = value
+    })
 
     console.log(companies)
-    
+    let id: number
+
 
 </script>
 
 <div class="w-screen h-screen">
     <SearchWindow />
     <CompanyCreator />
-    <ProductCreator companies={$companies} />
+    <ProductCreator/>
+    <ProductOrderer companies={companyList} products={productList}/>
 </div>
