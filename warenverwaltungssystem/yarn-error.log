@@ -1,0 +1,70 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add prisma --save-dev
+
+PATH: 
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\nodejs\;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Users\bjarn\scoop\shims;C:\Users\bjarn\AppData\Local\Programs\Python\Launcher\;C:\Users\bjarn\AppData\Local\Microsoft\WindowsApps;C:\Users\bjarn\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\bjarn\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\bjarn\AppData\Local\Yarn\bin;C:\Users\bjarn\AppData\Roaming\npm;C:\Program Files\MongoDB\Server\7.0\bin;C:\Users\bjarn\AppData\Local\Programs\mongosh\;C:\Users\bjarn\AppData\Local\Programs\mongosh;C:\ProgramData\chocolatey\bin;
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  22.1.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\Users\bjarn\projects\warenverwaltungssystem\warenverwaltungssystem\node_modules\@esbuild\win32-x64\esbuild.exe'
+
+npm manifest: 
+  {
+  	"name": "warenverwaltungssystem",
+  	"version": "0.0.1",
+  	"scripts": {
+  		"dev": "vite dev",
+  		"build": "vite build",
+  		"preview": "vite preview",
+  		"test": "npm run test:integration && npm run test:unit",
+  		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+  		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+  		"lint": "prettier --check . && eslint .",
+  		"format": "prettier --write .",
+  		"test:integration": "playwright test",
+  		"test:unit": "vitest"
+  	},
+  	"devDependencies": {
+  		"@fontsource/fira-mono": "^4.5.10",
+  		"@neoconfetti/svelte": "^1.0.0",
+  		"@playwright/test": "^1.28.1",
+  		"@sveltejs/adapter-auto": "^3.0.0",
+  		"@sveltejs/kit": "^2.0.0",
+  		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+  		"@types/eslint": "^8.56.7",
+  		"autoprefixer": "^10.4.19",
+  		"eslint": "^9.0.0",
+  		"eslint-config-prettier": "^9.1.0",
+  		"eslint-plugin-svelte": "^2.36.0",
+  		"globals": "^15.0.0",
+  		"postcss": "^8.4.38",
+  		"prettier": "^3.1.1",
+  		"prettier-plugin-svelte": "^3.1.2",
+  		"svelte": "^4.2.7",
+  		"svelte-check": "^3.6.0",
+  		"tailwindcss": "^3.4.4",
+  		"tslib": "^2.4.1",
+  		"typescript": "^5.0.0",
+  		"typescript-eslint": "^8.0.0-alpha.20",
+  		"vite": "^5.0.3",
+  		"vitest": "^1.2.0"
+  	},
+  	"type": "module",
+  	"dependencies": {
+  		"@prisma/client": "^5.15.0"
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
