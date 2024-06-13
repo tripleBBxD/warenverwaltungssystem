@@ -3,7 +3,6 @@ import type { RequestEvent } from "./$types";
 import type { RequestHandler } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import type { PageServerLoad } from "./$types";
-import prisma from "$lib/prisma";
 import { writable } from "svelte/store";
 import type { Writable } from "svelte/store";
 import { getContext, setContext } from "svelte";
@@ -18,8 +17,27 @@ type dataType = {
 
 
 export const load: PageServerLoad = (async () => {
-	const companiesData = await prisma.company.findMany()
-	const productsData = await prisma.product.findMany()
+	const companiesData = [{
+		id: 1,
+		name: "Bar"
+	}, {
+		id: 2,
+		name: "Restaurant"
+	}]
+	const productsData = [
+		{
+			id: 1,
+			name: "Cola",
+			priceEuro: 2,
+			priceLocal: 5
+		},
+		{
+			id: 2,
+			name: "Bohnen",
+			priceEuro: 3,
+			priceLocal: 8
+		}
+	]
 	
 	let companies: Company[]
 	let products: Product[]
@@ -66,13 +84,6 @@ export const actions = {
 		}
 		const priceEuro: number = +priceEuroData
 		const priceLocal: number = +priceLocalData
-		await prisma.product.create({
-			data: {
-				name: productName,
-				priceEuro: priceEuro,
-				priceLocal: priceLocal
-			}
-		})
 
 	},
 	addCompany: async ({request}) => {
@@ -82,14 +93,6 @@ export const actions = {
 		if (!companyName || ! companyPassword || typeof companyName != "string" || typeof companyPassword != "string") {
 			return 0
 		}
-		const answer = await prisma.company.create({
-			data: {
-				name: companyName,
-				password: companyPassword
-			}
-		})
-		console.log(answer)
-		return answer
 	},
 	addOrder: async ({request}) => {
 		const data: FormData = await request.formData()
@@ -99,19 +102,5 @@ export const actions = {
 		if (!selectedCompanyIDData || !selectedProductIDData || !amountData) {
 			return 0
 		}
-		const selectedCompanyID = +selectedCompanyIDData
-		const selectedProductID = +selectedProductIDData
-		const amount= +amountData
-		const answer = await prisma.order.create({
-			data: {
-				amount: amount,
-				buyer: {
-					connect: {id: selectedCompanyID}
-				},
-				purchasedProduct: {
-					connect: {id: selectedProductID}
-				}
-			}
-		})
 	}
 } satisfies Actions
