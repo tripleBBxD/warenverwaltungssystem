@@ -3,9 +3,8 @@
 export const prerender = false;
 
 import type { Company } from "$lib/types/company";
-import type { Product } from "@prisma/client";
+import type { Product } from "$lib/types/product";
 import type { PageLoad } from "./$types";
-import prisma from "$lib/prisma";
 import type { Actions } from "@sveltejs/kit";
 
 type dataType = {
