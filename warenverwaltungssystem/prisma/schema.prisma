@@ -31,6 +31,6 @@ model Order {
   buyer   Company  @relation(fields: [companyID], references: [id])
   amount    Float    
 
-  productID Int      @unique
-  companyID Int      @unique
+  productID Int
+  companyID Int      
 }

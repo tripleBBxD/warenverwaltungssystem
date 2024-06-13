@@ -2,7 +2,7 @@ import { error, fail, type ActionResult } from "@sveltejs/kit";
 import type { RequestEvent } from "./$types";
 import type { RequestHandler } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import type { PageLoad } from "./$types";
+import type { PageServerLoad } from "./$types";
 import prisma from "$lib/prisma";
 import { writable } from "svelte/store";
 import type { Writable } from "svelte/store";
@@ -11,12 +11,19 @@ import type { Company } from "$lib/types/company";
 import type { Product } from "$lib/types/product";
 import { CommonProgramFiles } from "$env/static/private";
 
-export const load: PageLoad = (async () => {
+type dataType = {
+    companies: Company[],
+    products: Product[]
+}
+
+
+export const load: PageServerLoad = (async () => {
 	const companiesData = await prisma.company.findMany()
 	const productsData = await prisma.product.findMany()
 	
 	let companies: Company[]
 	let products: Product[]
+	
 	
 	companies =	companiesData.map((company) => {
 			return {
@@ -33,16 +40,21 @@ export const load: PageLoad = (async () => {
 			priceLocal: product.priceLocal
 		}
 	})
-	return {
+	console.log("Data loaded!")
+	const returnValue: dataType = {
 		companies: companies,
 		products: products
 	}
+	return returnValue
 })
 
 export const actions = {
 	search: async ({request}) => {
 		const data: FormData = await request.formData()
         console.log(data.get("productName"))
+		return {
+			searchResult: ""
+		}
 	},
 	addProduct: async ({request}) => {
 		const data: FormData = await request.formData()
@@ -50,7 +62,6 @@ export const actions = {
 		const priceEuroData = data.get("priceEuro")
 		const priceLocalData= data.get("priceLocal")
 		if (!productName || !priceEuroData || !priceLocalData) {
-			fail(400)
 			return 0
 		}
 		const priceEuro: number = +priceEuroData
@@ -62,13 +73,13 @@ export const actions = {
 				priceLocal: priceLocal
 			}
 		})
+
 	},
 	addCompany: async ({request}) => {
 		const data: FormData = await request.formData()
 		let companyName = data.get("companyName")?.toString()
 		let companyPassword = data.get("companyPassword")?.toString()
 		if (!companyName || ! companyPassword || typeof companyName != "string" || typeof companyPassword != "string") {
-			fail(400)
 			return 0
 		}
 		const answer = await prisma.company.create({
@@ -86,7 +97,6 @@ export const actions = {
 		const selectedProductIDData = data.get("selectedProduct")
 		const amountData = data.get("amount")
 		if (!selectedCompanyIDData || !selectedProductIDData || !amountData) {
-			fail(400)
 			return 0
 		}
 		const selectedCompanyID = +selectedCompanyIDData

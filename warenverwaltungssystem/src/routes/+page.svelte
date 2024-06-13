@@ -8,40 +8,23 @@
     import { setContext } from "svelte";
     import { writable } from "svelte/store";
     import type { Product } from "$lib/types/product";
-    import type { PageData } from "./$types";
+    import type { ActionData, PageData } from "./$types";
     import Selector from "$lib/components/Selector.svelte";
 	import ProductOrderer from "$lib/components/ProductOrderer.svelte";
+    import { page } from "$app/stores";
 
-    export let data: PageData
-
-    const companies = writable<Company[]>()
-    const products = writable<Product[]>()
-    setContext("companies", companies)
-    setContext("products", products)
-
-    companies.set(data.companies)
-    products.set(data.products)
-
-    let companyList: Company[]
-    let productList: Product[]
-
-    companies.subscribe((value) => {
-        companyList = value
-        console.log(companyList)
-    })
-    products.subscribe((value) => {
-        productList = value
-    })
-
-    console.log(companies)
-    let id: number
-
-
+    
 </script>
 
-<div class="w-screen h-screen">
-    <SearchWindow />
-    <CompanyCreator />
-    <ProductCreator/>
-    <ProductOrderer companies={companyList} products={productList}/>
-</div>
+<div class="w-screen h-screen p-4">
+    
+    <div class="grid grid-flow-row gap-2 w-fit siz m-auto">
+        <h1 class="text-center w-full outline outline-1 rounded-md ">Admin Panel</h1>
+        <SearchWindow />
+        <div class="flex flex-row gap-2 w-full justify-left w-">
+            <CompanyCreator />
+            <ProductCreator/>
+            <ProductOrderer companies={$page.data.companies} products={$page.data.products}/>
+        </div>
+    </div>  
+</div>  
